@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             return result
         }
 
-        override fun onPostExecut(result: String?) {
+        override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
             cancelProgressDialog()
         }
