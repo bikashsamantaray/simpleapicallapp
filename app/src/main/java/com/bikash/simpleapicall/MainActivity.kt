@@ -5,6 +5,8 @@ import android.app.ProgressDialog
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        CALLAPILoginAsyncTask().execute()
     }
 
     private inner class CALLAPILoginAsyncTask(): AsyncTask<Any, Void, String>(){
@@ -32,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             var result:String
             var connection:HttpURLConnection? = null
             try {
-                var url = URL("https://run.mocky.io/v3/6d4ac9a7-a427-499e-8f86-2c3bcec12ba1")
+                var url = URL("https://run.mocky.io/v3/b718c3d6-163c-4aff-b8d4-b26b46caf65e")
                 connection = url.openConnection() as HttpURLConnection
                 connection.doInput = true
                 connection.doOutput = true
@@ -76,6 +79,41 @@ class MainActivity : AppCompatActivity() {
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
             cancelProgressDialog()
+            if (result != null) {
+                Log.i("JSON RESPONSE RESULT", result)
+            }
+            val jsonObject = JSONObject(result)
+            val message = jsonObject.optString("messasge")
+            Log.i("Message",message)
+            val userId = jsonObject.optInt("id")
+            Log.i("id","$userId")
+            val name= jsonObject.optString("name")
+            Log.i("Name",name)
+/*
+            //to call a json object having nested json object
+            val profileDetailsObject = jsonObject.optJSONObject("profile_details")
+            val isProfileCompleted = profileDetailsObject?.optBoolean("is_profile_completed")
+            Log.i("Is profile completed","$isProfileCompleted")
+
+
+            //to call a json object having nested json object array
+            val dataListArray = jsonObject.optJSONArray("data_list")
+            Log.i("Data list size", "${dataListArray?.length()}")
+            for (item in 0 until dataListArray.length()){
+                Log.i("Value $item","${dataListArray[item]}")
+                //nested json object inside array
+                val dataItemObject: JSONObject = dataListArray[item] as JSONObject
+
+                val id = dataItemObject.optInt("id")
+                Log.i("ID","$id")
+                val value = dataItemObject.optString("value")
+                Log.i("Value",value)
+            }
+
+ */
+
+
+
         }
 
         private fun showProgressDialog(){
