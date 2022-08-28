@@ -18,7 +18,7 @@ import java.net.SocketTimeoutException
 import java.net.URL
 
 class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle??) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         CALLAPILoginAsyncTask("bikash","12345").execute()
