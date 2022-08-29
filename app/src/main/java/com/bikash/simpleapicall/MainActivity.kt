@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        CALLAPILoginAsyncTask("bikash","12345").execute()
+        CALLAPILoginAsyncTask("bikash","123456").execute()
     }
 
     private inner class CALLAPILoginAsyncTask(val username: String,val password: String): AsyncTask<Any, Void, String>(){
